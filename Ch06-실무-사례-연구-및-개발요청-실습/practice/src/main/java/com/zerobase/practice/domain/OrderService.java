@@ -1,17 +1,19 @@
-package com.zerobase.practice;
+package com.zerobase.practice.domain;
 
 
-import com.zerobase.practice.exception.ExceptionCode;
-import com.zerobase.practice.exception.ZeroBaseException;
-import com.zerobase.practice.infra.entity.Book;
-import com.zerobase.practice.infra.entity.BookOrder;
-import com.zerobase.practice.infra.entity.BookStock;
-import com.zerobase.practice.infra.entity.User;
-import com.zerobase.practice.infra.repository.BookOrderRepository;
-import com.zerobase.practice.infra.repository.BookRepository;
-import com.zerobase.practice.infra.repository.BookStockRepository;
+import com.zerobase.practice.domain.entity.Book;
+import com.zerobase.practice.domain.entity.BookOrder;
+import com.zerobase.practice.domain.entity.BookStock;
+import com.zerobase.practice.domain.entity.User;
+import com.zerobase.practice.domain.repository.BookOrderRepository;
+import com.zerobase.practice.domain.repository.BookRepository;
+import com.zerobase.practice.domain.repository.BookStockRepository;
+import com.zerobase.practice.web.infra.exception.ExceptionCode;
+import com.zerobase.practice.web.infra.exception.ZeroBaseException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class OrderService {
 
@@ -20,6 +22,7 @@ public class OrderService {
     private final BookOrderRepository bookOrderRepository;
 
     public Long order(User user, long bookId) {
+
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new ZeroBaseException(ExceptionCode.NOT_FOUND_BOOK));
         BookStock bookStock = bookStockRepository.findByBookId(bookId)
