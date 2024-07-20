@@ -1,4 +1,4 @@
-package com.zerobase.practice;
+package com.zerobase.practice.domain;
 
 import com.zerobase.practice.type.ZerobaseCourseStatus;
 import lombok.Builder;
@@ -14,7 +14,8 @@ import java.time.LocalDate;
 public class ZerobaseCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courseId;
+    @Column(name = "course_id")
+    private Long id;
 
     private String name;
 
@@ -28,12 +29,16 @@ public class ZerobaseCourse {
     private boolean hidden;
 
     @Builder
-    public ZerobaseCourse(Long courseId, String name, ZerobaseCourseStatus status, LocalDate startAt, LocalDate endAt, boolean hidden) {
-        this.courseId = courseId;
+    public ZerobaseCourse(Long id, String name, ZerobaseCourseStatus status, LocalDate startAt, LocalDate endAt, boolean hidden) {
+        this.id = id;
         this.name = name;
         this.status = status;
         this.startAt = startAt;
         this.endAt = endAt;
         this.hidden = hidden;
+    }
+
+    public boolean isSameStatus(ZerobaseCourseStatus status) {
+        return this.status == status;
     }
 }
